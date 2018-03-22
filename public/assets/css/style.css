@@ -1,0 +1,69 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  box-sizing: border-box; }
+
+body {
+  line-height: 1.7;
+  color: #3c3839;
+}
+
+div {
+  border: .2rem solid #3c3839;
+}
+
+.header {
+  min-height: 100vh;
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, .3),
+    rgba(255, 255, 255, 1)),
+  url('../images/trophy.jpg');
+  background-size: cover;
+  background-position: top;
+}
+
+.header__text {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.header__text--primary {
+  text-transform: uppercase;
+}
+
+.main-container {
+  width: 90vw;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.team {
+  width: auto;
+  padding: 3rem;
+  margin: 1rem;
+  background-color: #F1F1F1;
+  border: none;
+  position: relative;
+}
+
+.team__link {
+  position: absolute;
+  right: 1rem;
+}
+
+.comment {
+  width: auto;
+}

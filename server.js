@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-// var db = require("./models");
+var db = require("./models");
 
 var PORT = 3000;
 
@@ -15,10 +15,16 @@ app.use(logger("dev"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static("public"));
+app.use(express.static(__dirname + '/public/'));
 
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/fifaRankings");
+
+app.get("/", function(req, res) {
+
+  res.sendFile("index.html");
+
+});
 
 app.get("/scrapeRankings", function(req, res) {
 
@@ -30,17 +36,64 @@ app.get("/scrapeRankings", function(req, res) {
 
 			var result = {};
 
-			result.rank = $(this).children(".tbl-rank").children(".text").text();
+			result.ranking = $(this).children(".tbl-rank").children(".text").text();
+			result.flag = $(this).children(".tbl-teamname").children(".flag-wrap").children(".flag").attr("src").substring(2);
 			result.team = $(this).children(".tbl-teamname").children("a").text();
 
-			console.log(result);
+      db.Team.create(result)
+          .then(function(teamData) {
+          })
+          .catch(function(err) {
+              return res.json(err);
+          });
 
 		});
 
 	});
 
-	res.send("done");
+	res.send("Scraping done!");
 
+});
+
+app.get("/teams", function(req, res) {
+
+  db.Team.find({})
+    .then(function(teamData) {
+    	res.json(teamData);
+    	console.log(teamData);
+    })
+    .catch(function(err) {
+		res.json(err);
+    });
+
+});
+
+app.get("/teams/:id", function(req, res) {
+
+  db.Team.findOne({ _id: req.params.id })
+    .populate("comments")
+    .then(function(teamData) {
+    	console.log(teamData);
+      	res.json(teamData);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+
+});
+
+app.post("/teams/:id", function(req, res) {
+
+  db.Comment.create(req.body)
+    .then(function(commentData) {
+      return db.Team.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: commentData._id }}, { new: true });
+    })
+    .then(function(teamData) {
+    	res.json(teamData);
+    })
+    .catch(function(err) {
+    	res.json(err);
+    });
 });
 
 app.listen(PORT, function() {
