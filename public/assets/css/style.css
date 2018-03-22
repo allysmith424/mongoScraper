@@ -59,11 +59,41 @@ div {
   position: relative;
 }
 
+.team__position {
+  font-size: 3rem;
+  color: #bc0000;
+  font-weight: 600;
+}
+
+.team__flag-img {
+  width: 3rem;
+  margin: 0 1rem;
+}
+
 .team__link {
   position: absolute;
-  right: 1rem;
+  right: 2rem;
+  bottom: 2rem;
 }
 
 .comment {
   width: auto;
+  padding: 3rem;
+  margin: 1rem;
+  border: none;
+  position: relative;
+}
+
+.comment__name {
+  font-size: 2rem;
+  color: #bc0000;
+}
+
+.comment__time {
+  font-size: 1.1rem;
+  color: #bababa;
+}
+
+.comment__body {
+  color: #757575;
 }
