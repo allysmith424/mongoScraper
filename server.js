@@ -7,7 +7,7 @@ var cheerio = require("cheerio");
 
 var db = require("./models");
 
-var PORT = 3000;
+var port = process.env.PORT || 3000;
 
 var app = express();
 
@@ -123,6 +123,6 @@ app.get("/teamwithcomments/:id", function(req, res) {
     });
 });
 
-app.listen(PORT, function() {
+app.listen(port, function() {
   console.log("App running on port " + PORT + "!");
 });
