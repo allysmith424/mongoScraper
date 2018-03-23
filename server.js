@@ -143,5 +143,5 @@ app.get("/teamwithcomments/:id", function(req, res) {
 });
 
 app.listen(port, function() {
-  console.log("App running on port " + PORT + "!");
+  console.log("App running on port " + port + "!");
 });
