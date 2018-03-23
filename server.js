@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var db = require("./models");
+var databse = require("./models");
 
 var port = process.env.PORT || 3000;
 
@@ -16,6 +16,25 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public/'));
+
+var databaseUri = "mongodb://localhost/fifaRankings";
+
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+}
+else {
+  mongoose.connect(databaseUri)
+}
+
+var db = mongoose.connection;
+
+db.on("error", function(err) {
+  console.log("Mongoose error: , err");
+});
+
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
 
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/fifaRankings");
@@ -40,7 +59,7 @@ app.get("/scrapeRankings", function(req, res) {
 			result.flag = $(this).children(".tbl-teamname").children(".flag-wrap").children(".flag").attr("src").substring(2);
 			result.team = $(this).children(".tbl-teamname").children("a").text();
 
-      db.Team.create(result)
+      databse.Team.create(result)
           .then(function(teamData) {
           })
           .catch(function(err) {
@@ -57,7 +76,7 @@ app.get("/scrapeRankings", function(req, res) {
 
 app.get("/teams", function(req, res) {
 
-  db.Team.find({}).sort({ranking: 1})
+  databse.Team.find({}).sort({ranking: 1})
     .then(function(teamData) {
     	res.json(teamData);
     	console.log(teamData);
@@ -70,7 +89,7 @@ app.get("/teams", function(req, res) {
 
 app.get("/teams/:id", function(req, res) {
 
-  db.Team.findOne({ _id: req.params.id })
+  databse.Team.findOne({ _id: req.params.id })
     .populate("comments")
     .then(function(teamData) {
     	console.log(teamData);
@@ -84,9 +103,9 @@ app.get("/teams/:id", function(req, res) {
 
 app.post("/teams/:id", function(req, res) {
 
-  db.Comment.create(req.body)
+  databse.Comment.create(req.body)
     .then(function(commentData) {
-      return db.Team.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: commentData._id }}, { new: true });
+      return databse.Team.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: commentData._id }}, { new: true });
     })
     .then(function(teamData) {
     	res.json(teamData);
@@ -98,9 +117,9 @@ app.post("/teams/:id", function(req, res) {
 
 app.post("/teams/:id", function(req, res) {
 
-  db.Comment.create(req.body)
+  databse.Comment.create(req.body)
     .then(function(comment) {
-      return db.Team.findOneAndUpdate({ _id: req.params.id }, { note: comment._id }, { new: true });
+      return databse.Team.findOneAndUpdate({ _id: req.params.id }, { note: comment._id }, { new: true });
     })
     .then(function(teamData) {
       res.json(teamData);
@@ -113,7 +132,7 @@ app.post("/teams/:id", function(req, res) {
 
 app.get("/teamwithcomments/:id", function(req, res) {
 
-  db.Team.findOne({ _id: req.params.id })
+  databse.Team.findOne({ _id: req.params.id })
     .populate("comments")
     .then(function(teamData) {
       res.json(teamData);
