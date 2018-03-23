@@ -4,6 +4,9 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/skeleton.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans|Noto+Sans:700" rel="stylesheet">
 
 	<title>FIFA Rankings Debate</title>
 
@@ -18,9 +21,11 @@
 
 			<h1>
 
-				<span class="header__text--primary">FIFA Rankings</span>
+				<span class="header__text--primary">FIFA<br>Rankings</span>
 				<br>
-				<span class="header__text--sub">Scroll down to join the conversation</span>
+				<span class="header__text--sub">Click to load latest rankings</span>
+				<br>
+				<button id="header__load-btn">Go</button>
 
 			</h1>
 
@@ -30,74 +35,26 @@
 
 	<div class="main-container row">
 
-		<section class="rankingsList one-half column">
+		<section class="rankings-list one-half column"></section>
 
-			<div class="team">
+		<section class="user-comments one-half column">
 
-				<span class="team__position">1</span>
-				<span class="team__flag"><img src="assets/images/germany.png" class="team__flag-img"></span>
-				<span class="team__name">Germany</span>
-				<span class="team__link">See comments</span>
+			<div class="user-comment">
 
-			</div>
-
-			<div class="team">
-
-				<span class="team__position">1</span>
-				<span class="team__flag"><img src="assets/images/germany.png" class="team__flag-img"></span>
-				<span class="team__name">Germany</span>
-				<span class="team__link">See comments</span>
+					<label for="nameInput">Name</label>
+					<input class="u-full-width" type="text" placeholder="Your name" id="nameInput">
+					<label for="bodyInput">Comment</label>
+  				<textarea class="u-full-width" placeholder="The more controversial the better..." id="bodyInput"></textarea>
 
 			</div>
 
-			<div class="team">
-
-				<span class="team__position">1</span>
-				<span class="team__flag"><img src="assets/images/germany.png" class="team__flag-img"></span>
-				<span class="team__name">Germany</span>
-				<span class="team__link">See comments</span>
-
-			</div>
-
-		</section>
-
-		<section class="userCcomments one-half column">
-
-			<div class="comment">
-
-				<span class="comment__name">Ally Smith</span>
-				<br>
-				<span class="comment__time">03/04/18 12:10PM</span>
-				<br>
-				<span class="comment__body">No way will Germany not win this world cup...</span>
-
-			</div>
-
-			<div class="comment">
-
-				<span class="comment__name">Ally Smith</span>
-				<br>
-				<span class="comment__time">03/04/18 12:10PM</span>
-				<br>
-				<span class="comment__body">No way will Germany not win this world cup...</span>
-
-			</div>
-
-			<div class="comment">
-
-				<span class="comment__name">Ally Smith</span>
-				<br>
-				<span class="comment__time">03/04/18 12:10PM</span>
-				<br>
-				<span class="comment__body">No way will Germany not win this world cup...</span>
-
-			</div>
+			<div class="comments-list"></div>
 
 		</section>
 
 	</div>
 
-	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script src="assets/js/app.js"></script>
 
 </body>
 </html>

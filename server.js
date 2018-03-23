@@ -57,7 +57,7 @@ app.get("/scrapeRankings", function(req, res) {
 
 app.get("/teams", function(req, res) {
 
-  db.Team.find({})
+  db.Team.find({}).sort({ranking: 1})
     .then(function(teamData) {
     	res.json(teamData);
     	console.log(teamData);
@@ -93,6 +93,33 @@ app.post("/teams/:id", function(req, res) {
     })
     .catch(function(err) {
     	res.json(err);
+    });
+});
+
+app.post("/teams/:id", function(req, res) {
+
+  db.Comment.create(req.body)
+    .then(function(comment) {
+      return db.Team.findOneAndUpdate({ _id: req.params.id }, { note: comment._id }, { new: true });
+    })
+    .then(function(teamData) {
+      res.json(teamData);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+
+});
+
+app.get("/teamwithcomments/:id", function(req, res) {
+
+  db.Team.findOne({ _id: req.params.id })
+    .populate("comments")
+    .then(function(teamData) {
+      res.json(teamData);
+    })
+    .catch(function(err) {
+      res.json(err);
     });
 });
 
