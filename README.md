@@ -30,7 +30,7 @@ Clicking a team brings up the user-generated comments for that team. It also bri
 .
 ### Technologies and Code
 
-The stack for this app is the usual suspects on the front end (HTML, CSS, Javascript, jQuery) and Node, Express, and MongoDB on the back end. So basically the MERN stack without React.
+The stack for this app is the usual suspects on the front end (HTML, CSS, Javascript, jQuery) and Node, Express, and MongoDB on the back end. So basically the MERN stack without React. Everything is organized according to the MVC paradigm.
 
 The rankings data is scraped from the FIFA website using markup parser Cheerio. This ensures that whenever the user loads the rankings, they're up-to-date.
 
