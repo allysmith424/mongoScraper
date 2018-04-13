@@ -74,12 +74,24 @@ app.get("/scrapeRankings", function(req, res) {
 
 });
 
+app.get("/remove", function(req, res) {
+
+  databse.Team.remove()
+    .then(function(result) {
+      res.json(result);
+      console.log(result);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+
+});
+
 app.get("/teams", function(req, res) {
 
   databse.Team.find({}).sort({ranking: 1})
     .then(function(teamData) {
     	res.json(teamData);
-    	console.log(teamData);
     })
     .catch(function(err) {
 		res.json(err);

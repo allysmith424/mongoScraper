@@ -70,6 +70,8 @@ $(document).ready(function() {
 
   $("#header__load-btn").on("click", function(e) {
 
+    $.get("/remove");
+
     $.get("/scrapeRankings");
 
     location.reload();
